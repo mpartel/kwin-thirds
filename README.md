@@ -16,9 +16,9 @@ Works with multiple monitors.
 # Installation
 
 Run `./reinstall.sh`.
-At least on Kubuntu 16.04, this installs the script to
-`~/.local/share/kwin/scripts/kwin-thirds` and `~/.local/share/kservices5/kwin-script-kwin-thirds.desktop`.
-To uninstall, simply delete those.
+At least on Kubuntu 18.04, this installs the script to `~/.local/share/kwin/scripts/kwin-thirds`.
+To uninstall, run `plasmapkg2 -t kwinscript -r kwin-thirds`.
 
-If the keyboard shortcuts don't work, you may have to configure them manually in "Settings" -> "Shortcuts" -> "Global Keyboard Shortcuts" -> "KWin" -> search for "kwin-thirds". This is likely to happen as the shortcuts conflict with the Zoom plugin.
+Activate the plugin from "Settings" -> "Window management" -> "KWin Scripts".
 
+If the keyboard shortcuts don't work, you may have to configure them manually in "Settings" -> "Shortcuts" -> "Global Keyboard Shortcuts" -> "KWin" -> search for "Thirds". This is likely to happen as the shortcuts conflict with the Zoom plugin.

@@ -5,7 +5,7 @@ function windowCoordinatesAlmostEqual(a, b) {
 
 var nextCommandUsesTwoThirds = false;
 
-var resizeAndMove = function(horizontalThird) {
+function resizeAndMove(horizontalThird) {
   var placementArea = workspace.clientArea(KWin.PlacementArea, workspace.activeScreen, workspace.currentDesktop);
 print(placementArea.y);
 
@@ -66,9 +66,13 @@ print(placementArea.y);
   // TODO: restore size when window is moved with mouse, if it hasn't been resized otherwise
 }
 
-registerShortcut("kwin-thirds: left", "kwin-thirds: left", "Meta+Left", function () { resizeAndMove(0); });
-registerShortcut("kwin-thirds: middle", "kwin-thirds: middle", "Meta+Down", function () { resizeAndMove(1); });
-registerShortcut("kwin-thirds: right", "kwin-thirds: right", "Meta+Right", function () { resizeAndMove(2); });
+function shortcut(text, defaultShortcut, func) {
+  registerShortcut(text, text, defaultShortcut, func);
+}
 
-registerShortcut("kwin-thirds: next command uses 1/3", "kwin-thirds: next command uses 1/3", "Meta+1", function () { nextCommandUsesTwoThirds = false; });
-registerShortcut("kwin-thirds: next command uses 2/3", "kwin-thirds: next command uses 2/3", "Meta+2", function () { nextCommandUsesTwoThirds = true; });
+shortcut("Thirds: Window to Left", "Meta+Left", function () { resizeAndMove(0); });
+shortcut("Thirds: Window To Middle", "Meta+Down", function () { resizeAndMove(1); });
+shortcut("Thirds: Window to Right", "Meta+Right", function () { resizeAndMove(2); });
+
+shortcut("Thirds: Next Command Uses 1/3", "Meta+1", function () { nextCommandUsesTwoThirds = false; });
+shortcut("Thirds: Next Command Uses 2/3", "Meta+2", function () { nextCommandUsesTwoThirds = true; });

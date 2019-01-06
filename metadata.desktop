@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=kwin-thirds
-Comment=Spans fullscreen video player over all attached screens to create a Video Wall
+Comment=Shortcuts to make windows span a third of the screen.
 Icon=preferences-system-windows-script-test
 
 X-Plasma-API=javascript
