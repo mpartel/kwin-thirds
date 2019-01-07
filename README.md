@@ -6,8 +6,9 @@ Suggested shortcuts (Meta = Windows key, usually):
 - "Meta+Down": Move the window to the middle third. Repeat to toggle full height, top half, bottom half.
 - "Meta+Right": Move the window to the right third. Repeat to toggle full height, top half, bottom half.
 
-- "Meta+2": The next command resizes to 2/3 rather than 1/3 of the screen.
-- "Meta+1": Cancel the last "Meta+2" press.
+- "Meta+Ctrl+Left": Move the window to the left 2/3. Repeat to toggle full height, top half, bottom half.
+- "Meta+Ctrl+Down": Move the window to the middle 2/3. Repeat to toggle full height, top half, bottom half.
+- "Meta+Ctrl+Right": Move the window to the right 2/3. Repeat to toggle full height, top half, bottom half.
 
 Tested on Kubuntu 18.04.
 
@@ -15,10 +16,13 @@ Works with multiple monitors.
 
 # Installation
 
-Run `./reinstall.sh`.
-At least on Kubuntu 18.04, this installs the script to `~/.local/share/kwin/scripts/kwin-thirds`.
-To uninstall, run `plasmapkg2 -t kwinscript -r kwin-thirds`.
+Run `./install.sh`
 
-Activate the plugin from "Settings" -> "Window management" -> "KWin Scripts".
+Activate the plugin from "System Settings" -> "Window management" -> "KWin Scripts".
 
-The keyboard shortcuts usually conflict with existing shortcuts, so you'll have to configure them manually in "Settings" -> "Shortcuts" -> "Global Keyboard Shortcuts" -> "KWin" -> search for "Thirds".
+The keyboard shortcuts usually conflict with existing shortcuts, so you'll have to configure them manually in "System Settings" -> "Shortcuts" -> "Global Keyboard Shortcuts" -> "KWin" -> search for "Thirds".
+
+# Uninstallation
+
+Uninstall the package with `plasmapkg2 -t kwinscript -r kwin-thirds`.
+Remove the shortcuts with `qdbus org.kde.kglobalaccel /component/kwin cleanUp`.

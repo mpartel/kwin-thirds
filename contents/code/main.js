@@ -3,16 +3,13 @@ function windowCoordinatesAlmostEqual(a, b) {
   return Math.abs(a - b) < 2;
 }
 
-var nextCommandUsesTwoThirds = false;
-
-function resizeAndMove(horizontalThird) {
+function resizeAndMove(horizontalThird, twoThirds) {
   var placementArea = workspace.clientArea(KWin.PlacementArea, workspace.activeScreen, workspace.currentDesktop);
 print(placementArea.y);
 
   var g = workspace.activeClient.geometry;
 
-  var numThirds = nextCommandUsesTwoThirds ? 2 : 1;
-  nextCommandUsesTwoThirds = false;
+  var numThirds = twoThirds ? 2 : 1;
 
   var thirdWidth = placementArea.width / 3;
   var width = numThirds * thirdWidth;
@@ -70,9 +67,10 @@ function shortcut(text, defaultShortcut, func) {
   registerShortcut(text, text, defaultShortcut, func);
 }
 
-shortcut("Thirds: Window to Left", "Meta+Left", function () { resizeAndMove(0); });
-shortcut("Thirds: Window To Middle", "Meta+Down", function () { resizeAndMove(1); });
-shortcut("Thirds: Window to Right", "Meta+Right", function () { resizeAndMove(2); });
+shortcut("Thirds: Window to Left 1/3", "Meta+Left", function () { resizeAndMove(0, false); });
+shortcut("Thirds: Window To Middle 1/3", "Meta+Down", function () { resizeAndMove(1, false); });
+shortcut("Thirds: Window to Right 1/3", "Meta+Right", function () { resizeAndMove(2, false); });
 
-shortcut("Thirds: Next Command Uses 1/3", "Meta+1", function () { nextCommandUsesTwoThirds = false; });
-shortcut("Thirds: Next Command Uses 2/3", "Meta+2", function () { nextCommandUsesTwoThirds = true; });
+shortcut("Thirds: Window to Left 2/3", "Meta+Ctrl+Left", function () { resizeAndMove(0, true); });
+shortcut("Thirds: Window To Middle 2/3", "Meta+Ctrl+Down", function () { resizeAndMove(1, true); });
+shortcut("Thirds: Window to Right 2/3", "Meta+Ctrl+Right", function () { resizeAndMove(2, true); });
