@@ -5,7 +5,6 @@ function windowCoordinatesAlmostEqual(a, b) {
 
 function resizeAndMove(horizontalThird, twoThirds) {
   var placementArea = workspace.clientArea(KWin.PlacementArea, workspace.activeScreen, workspace.currentDesktop);
-print(placementArea.y);
 
   var g = workspace.activeClient.geometry;
 
