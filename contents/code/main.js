@@ -66,6 +66,69 @@ function resizeAndMove(horizontalThird, twoThirds) {
   // TODO: restore size when window is moved with mouse, if it hasn't been resized otherwise
 }
 
+function resizeAndMoveVertical(verticalThird, twoThirds) {
+  if (!workspace.activeClient.normalWindow && !workspace.activeClient.utility) {
+    return;
+  }
+
+  var placementArea = workspace.clientArea(KWin.PlacementArea, workspace.activeScreen, workspace.currentDesktop);
+
+  var g = workspace.activeClient.geometry;
+
+  var numThirds = twoThirds ? 2 : 1;
+
+  var thirdHeight = placementArea.height / 3;
+  var height = numThirds * thirdHeight;
+  var top;
+  if (numThirds == 1) {
+    top = placementArea.y + verticalThird * thirdHeight;
+  } else if (numThirds == 2) {
+    if (verticalThird == 0) {
+      top = placementArea.y;
+    } else if (verticalThird == 1) {
+      top = placementArea.y + thirdHeight / 2;
+    } else if (verticalThird == 2) {
+      top = placementArea.y + thirdHeight;
+    }
+  }
+
+  var verticalLayoutChanged = (
+    !windowCoordinatesAlmostEqual(g.y, top) ||
+    !windowCoordinatesAlmostEqual(g.height, height)
+  );
+  g.y = top;
+  g.height = height;
+
+  var left = placementArea.x;
+  var fullWidth = placementArea.width;
+  var halfWidth = fullWidth / 2;
+  var horizontalLayouts = [[left, fullWidth], [left, halfWidth], [left + halfWidth, halfWidth]];
+
+  var currentHorizontalLayout = null;
+  for (var i = 0; i < horizontalLayouts.length; ++i) {
+    var x = horizontalLayouts[i][0];
+    var h = horizontalLayouts[i][1];
+    if (windowCoordinatesAlmostEqual(g.x, x) && windowCoordinatesAlmostEqual(g.width, h)) {
+      currentHorizontalLayout = i;
+      break;
+    }
+  }
+
+  var newHorizontalLayout;
+  if (currentHorizontalLayout === null || verticalLayoutChanged) {
+    newHorizontalLayout = 0;
+  } else {
+    newHorizontalLayout = (currentHorizontalLayout + 1) % horizontalLayouts.length;
+  }
+
+  g.x = horizontalLayouts[newHorizontalLayout][0];
+  g.width = horizontalLayouts[newHorizontalLayout][1];
+
+  workspace.activeClient.geometry = g;
+
+  // TODO: restore size when window is moved with mouse, if it hasn't been resized otherwise
+}
+
 function shortcut(text, defaultShortcut, func) {
   registerShortcut(text, text, defaultShortcut, func);
 }
@@ -77,3 +140,11 @@ shortcut("Thirds: Window to Right 1/3", "Meta+Right", function () { resizeAndMov
 shortcut("Thirds: Window to Left 2/3", "Meta+Ctrl+Left", function () { resizeAndMove(0, true); });
 shortcut("Thirds: Window To Middle 2/3", "Meta+Ctrl+Down", function () { resizeAndMove(1, true); });
 shortcut("Thirds: Window to Right 2/3", "Meta+Ctrl+Right", function () { resizeAndMove(2, true); });
+
+shortcut("Thirds: Window to Top 1/3", "Meta+B", function () { resizeAndMoveVertical(0, false); });
+shortcut("Thirds: Window To Center 1/3", "Meta+N", function () { resizeAndMoveVertical(1, false); });
+shortcut("Thirds: Window to Bottom 1/3", "Meta+M", function () { resizeAndMoveVertical(2, false); });
+
+shortcut("Thirds: Window to Top 2/3", "Meta+Ctrl+B", function () { resizeAndMoveVertical(0, true); });
+shortcut("Thirds: Window To Center 2/3", "Meta+Ctrl+N", function () { resizeAndMoveVertical(1, true); });
+shortcut("Thirds: Window to Bottom 2/3", "Meta+Ctrl+M", function () { resizeAndMoveVertical(2, true); });
