@@ -66,6 +66,7 @@ function resizeAndMove(horizontalThird, twoThirds) {
   // TODO: restore size when window is moved with mouse, if it hasn't been resized otherwise
 }
 
+// TODO: this is a copy/paste with x<->y and width<->height. Could be less copy/paste.
 function resizeAndMoveVertical(verticalThird, twoThirds) {
   if (!workspace.activeClient.normalWindow && !workspace.activeClient.utility) {
     return;
@@ -134,17 +135,17 @@ function shortcut(text, defaultShortcut, func) {
 }
 
 shortcut("Thirds: Window to Left 1/3", "Meta+Left", function () { resizeAndMove(0, false); });
-shortcut("Thirds: Window To Middle 1/3", "Meta+Down", function () { resizeAndMove(1, false); });
+shortcut("Thirds: Window to Horizontal Middle 1/3", "Meta+Down", function () { resizeAndMove(1, false); });
 shortcut("Thirds: Window to Right 1/3", "Meta+Right", function () { resizeAndMove(2, false); });
 
 shortcut("Thirds: Window to Left 2/3", "Meta+Ctrl+Left", function () { resizeAndMove(0, true); });
-shortcut("Thirds: Window To Middle 2/3", "Meta+Ctrl+Down", function () { resizeAndMove(1, true); });
+shortcut("Thirds: Window to Horizontal Middle 2/3", "Meta+Ctrl+Down", function () { resizeAndMove(1, true); });
 shortcut("Thirds: Window to Right 2/3", "Meta+Ctrl+Right", function () { resizeAndMove(2, true); });
 
 shortcut("Thirds: Window to Top 1/3", "Meta+B", function () { resizeAndMoveVertical(0, false); });
-shortcut("Thirds: Window To Center 1/3", "Meta+N", function () { resizeAndMoveVertical(1, false); });
+shortcut("Thirds: Window to Vertical Middle 1/3", "Meta+N", function () { resizeAndMoveVertical(1, false); });
 shortcut("Thirds: Window to Bottom 1/3", "Meta+M", function () { resizeAndMoveVertical(2, false); });
 
 shortcut("Thirds: Window to Top 2/3", "Meta+Ctrl+B", function () { resizeAndMoveVertical(0, true); });
-shortcut("Thirds: Window To Center 2/3", "Meta+Ctrl+N", function () { resizeAndMoveVertical(1, true); });
+shortcut("Thirds: Window to Vertical Middle 2/3", "Meta+Ctrl+N", function () { resizeAndMoveVertical(1, true); });
 shortcut("Thirds: Window to Bottom 2/3", "Meta+Ctrl+M", function () { resizeAndMoveVertical(2, true); });
